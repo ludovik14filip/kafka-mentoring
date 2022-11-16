@@ -1,12 +1,12 @@
 package org.epam.learn.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.epam.learn.model.Signal;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -18,13 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 public class KafkaSenderService {
     private final KafkaTemplate<String, Signal> kafkaTemplate;
 
+    @Transactional
     @SneakyThrows
     public Signal justSend(String topicName, Signal signal) {
-        List<Signal> signals = new ArrayList<>();
         ProducerRecord<String, Signal> producerRecord =
                 new ProducerRecord<>(topicName, String.valueOf(signal.getVehicleId()), signal);
-
-        return kafkaTemplate.send(producerRecord).completable().thenApply(r -> r.getProducerRecord()).join().value();
-
+        return kafkaTemplate.send(producerRecord).get(5000, TimeUnit.SECONDS).getProducerRecord().value();
     }
 }

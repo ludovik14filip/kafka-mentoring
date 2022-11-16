@@ -15,7 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class ListenersConfig {
+
     private final Random random = new Random();
+
     private final SignalStringDataMapper signalStringDataMapper;
 
     @KafkaListener(topics = "taxi", containerFactory = "containerFactory")

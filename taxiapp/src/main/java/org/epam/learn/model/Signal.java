@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Signal {
-    @JsonProperty("id")
+    @JsonProperty("vehicleId")
     private Long vehicleId;
     @JsonProperty("details")
     private String details;

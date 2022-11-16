@@ -1,0 +1,10 @@
+server:
+  port: 8082
+spring:
+  kafka:
+    consumer:
+      group-id: consumertwo
+    bootstrap-servers: localhost:8097
+  application:
+    name: consumerAPP
+

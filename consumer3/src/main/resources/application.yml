@@ -1,0 +1,12 @@
+server:
+  port: 8083
+spring:
+  kafka:
+    consumer:
+      group-id: consumer3
+      fetch-min-size: 300
+      fetch-max-wait: 10000
+    bootstrap-servers: localhost:8097
+  application:
+    name: consumerAPP
+

@@ -1,5 +1,6 @@
 package org.epam.learn.config.listeners;
 
+import org.epam.learn.converter.SignalStringDataMapper;
 import org.epam.learn.model.Signal;
 import org.epam.learn.service.DestinationDefinerService;
 import org.epam.learn.service.LogAndSaveService;
@@ -16,6 +17,7 @@ public class ListenersConfig {
 
     private final DestinationDefinerService destinationDefinerService;
     private final LogAndSaveService logAndSaveService;
+    private final SignalStringDataMapper signalStringDataMapper;
 
     @KafkaListener(topics = "taxi", containerFactory = "containerFactory")
     public void taxiSignalListener(Signal signal) {
@@ -23,8 +25,9 @@ public class ListenersConfig {
         destinationDefinerService.defineDestinationAndLogResult(signal);
     }
 
-    @KafkaListener(topics = "logintopic", containerFactory = "containerFactory")
-    public void logSignalListener(Signal signal) {
+    @KafkaListener(topics = "logintopic")
+    public void logSignalListener(String in) {
+        Signal signal = signalStringDataMapper.parseStringToSignal(in);
         log.info("Signal to log was catch" + signal.toString());
         logAndSaveService.logAndSaveSignalInfo(signal);
     }

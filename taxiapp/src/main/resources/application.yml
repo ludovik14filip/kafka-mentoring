@@ -1,5 +1,7 @@
 spring:
   kafka:
+    consumer:
+      group-id: baseGroup
     bootstrap-servers: localhost:8097
   application:
     name: kafkaapp
