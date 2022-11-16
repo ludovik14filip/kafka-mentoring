@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    consumer:
+      group-id: mykafka
+      auto-offset-reset: earliest
+    bootstrap-servers: localhost:8097
+  application:
+    name: kafkaapp
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: username
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+tpd:
+  topic-name: taxi
+  messages-per-request: 10

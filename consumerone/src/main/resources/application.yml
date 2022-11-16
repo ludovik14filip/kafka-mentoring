@@ -1,0 +1,11 @@
+server:
+  port: 8081
+spring:
+  kafka:
+    consumer:
+      group-id: mykafka
+      auto-offset-reset: earliest
+    bootstrap-servers: localhost:8097
+  application:
+    name: consumerAPP
+
